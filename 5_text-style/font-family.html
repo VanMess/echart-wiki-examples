@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+		<link href="//cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet" />
+	</head>
+	<body>
+		<!-- 强制触发浏览器加载字体文件 -->
+		<i class="fa fa-user" style="font-size: 0;"></i>
+		<div id="main" style="width: 600px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.common.js"></script>
+		<script type="text/javascript">
+			var myChart = echarts.init(document.getElementById('main'));
+
+			var option = {
+				toolbox: {
+					feature: {
+						saveAsImage: {},
+					},
+				},
+				title: {
+					// 自定义字体需要使用 unicode 编码格式表示
+					// 如本例中的 `\uf007`
+					text: '字体测试 \uf007',
+					textStyle: {
+						fontSize: 25,
+						// 若字体名称中带有空格，需要使用 `"` 包围
+						fontFamily: '"Font Awesome 5 Free"',
+					},
+				},
+			};
+			// 如果渲染时字体文件还没加载完，自定义字体会被显示为空
+			// 所以这里需要加上延迟渲染
+			setTimeout(() => {
+				myChart.setOption(option);
+			}, 0);
+		</script>
+	</body>
+</html>

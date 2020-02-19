@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.common.js"></script>
+		<script type="text/javascript">
+			var myChart = echarts.init(document.getElementById('main'));
+
+			var option = {
+				toolbox: {
+					feature: {
+						saveAsImage: {},
+					},
+				},
+				title: {
+					text: '字体测试\n第二行效果',
+					left: '30%',
+					top: '30%',
+					textStyle: {
+						fontSize: 20,
+						textBorderWidth: 10,
+						textBorderColor: '#ddd',
+						lineHeight: 40,
+					},
+				},
+			};
+			// 如果渲染时字体文件还没加载完，自定义字体会被显示为空
+			// 所以这里需要加上延迟渲染
+			setTimeout(() => {
+				myChart.setOption(option);
+			}, 0);
+		</script>
+	</body>
+</html>
