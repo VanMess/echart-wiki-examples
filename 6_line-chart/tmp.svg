@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1" width="900" height="600">
+		<path d="M168 47
+		C167 47 149 20 138 75
+		C136 78 136 121 150 119 
+		" style=" fill:#053973; stroke:#000; stroke-width:3;"></path>
+		<path d="M200 55
+		 L200 50 L191 50 
+		C172 56 216 25 168 52
+		C168 52 167 42 159 39
+		C159 39 171 55 147 70
+		C148 83 145 128 178 153
+		" style=" fill:#fff; stroke:#7f7f7f; stroke-width:2;"></path>
+		<path d="M190 70
+		L197 55  212 55 220 70
+		C220 70 206 50 215 44
+		C218 43 220 39 245 59
+		" style="fill:#fff; stroke:#727272; stroke-width:2;"></path>
+		<path d="M166 116
+		C166 116 145 95 146 72
+		C146 68 161 56 190 75
+		" style="fill:#fff; stroke:#727272; stroke-width:2;"></path>
+		<ellipse cx="-138" cy="-216" rx="13" ry="30" style="fill:#e6f5fa; stroke:#7e7e7b; stroke-width:2; transform:rotate(140deg);-webkit-transform:rotate(140deg);"></ellipse>
+		<ellipse cx="-115" cy="-235" rx="9" ry="20" style="fill:#000;transform:rotate(135deg);-webkit-transform:rotate(135deg)"></ellipse>
+		<ellipse cx="-59" cy="-220" rx="22" ry="50" style="fill:#e6f5fa; stroke:#7e7e7b; stroke-width:2;transform:rotate(135deg);-webkit-transform:rotate(135deg)"></ellipse>
+		<ellipse cx="-40" cy="-233" rx="15" ry="27" style="fill:#000; transform:rotate(132deg);-webkit-transform:rotate(132deg)"></ellipse>
+		<path d="M275 113
+		C275 113 296 40 328 49
+		C326 44 348 68 290 102
+		L290 102 288 110 
+		C288 110 325 135 294 165 
+		C294 165 261 225 208 172 
+		C208 172 195 165 178 155
+		C178 155 160 138 180 135
+		C183 132 244 165 228 100
+		C228 100 229 89 248 99
+		C248 99 265 112 266 87
+		C266 85 278 72 285 90
+		C285 91 282 100 272 92
+		" style="fill:#fed100; stroke:#d16100; stroke-width:3;"></path>
+		<path d="M283 109
+		C283 115 305 137 291 146
+		C291 146 253 209 238 172
+		C238 172 224  157 190 151
+		C190 151 248 165 283 109
+		" style="fill:#d53400;stroke:#ce6a02; stroke-width:3;"></path>
+		<path d="M283 109
+		C283 109 300 72 320 68
+		" style="fill:#fed100;stroke:#ce6a02; stroke-width:2;"></path>
+		<path d="M245 144
+		C245 144 268 133 270 126
+		C270 126 278 135 270 150
+		C270 150 256 144 245 144
+		" style="fill:#f76eb8; stroke:#f76eb8;"></path>
+		
+		
+	</svg>

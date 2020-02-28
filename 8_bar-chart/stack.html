@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.common.js"></script>
+		<script type="text/javascript">
+			var myChart = echarts.init(document.getElementById('main'));
+
+			var option = {
+				toolbox: {
+					feature: {
+						saveAsImage: {},
+					},
+				},
+				title: { text: '每日销售额', left: 'center', top: 10 },
+				xAxis: {
+					type: 'category',
+					data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+				},
+				yAxis: { type: 'value' },
+				series: [
+					{
+						data: [820, 912, 899, 786, 1290, 1330, 1320],
+						type: 'bar',
+						name: '水果',
+						stack: 'search engine',
+					},
+					{
+						data: [840, 1002, 789, 934, 1090, 1728, 1468],
+						type: 'bar',
+						name: '蔬菜',
+						stack: 'search engine',
+					},
+					{
+						data: [780, 340, 879, 624, 1588, 1624, 1890],
+						type: 'bar',
+						name: '百货',
+						stack: 'search engine',
+					},
+				],
+				legend: { data: ['水果', '蔬菜', '百货'], show: true, bottom: 0 },
+				label: { show: true },
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>

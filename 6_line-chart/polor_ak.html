@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			var myChart = echarts.init(document.getElementById('main'));
+
+			var data = [];
+			var max = 300;
+			for (var i = 0; i <= max; i++) {
+				var angle = Math.ceil(i * ((360 * 6) / max));
+				// 阿基米德螺旋公式：
+				// r = a + b * θ
+				var r = angle;
+				data.push([r, angle]);
+			}
+
+			var option = {
+				toolbox: {
+					feature: {
+						saveAsImage: {},
+					},
+				},
+				polar: {},
+				angleAxis: {
+					type: 'value',
+					startAngle: 0,
+					min: 0,
+					max: 360,
+				},
+				radiusAxis: {},
+				series: [{ showSymbol: false, coordinateSystem: 'polar', type: 'line', data: data }],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>

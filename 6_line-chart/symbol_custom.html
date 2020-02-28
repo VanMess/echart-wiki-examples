@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.common.js"></script>
+		<script type="text/javascript">
+			var myChart = echarts.init(document.getElementById('main'));
+			var symbols = [
+				// 传入图片地址
+				{ symbol: 'image://' + location.origin + '/assets/imooc-logo.png', name: 'imooc' },
+				{
+					// 传入图片base64
+					name: 'echarts',
+					symbol:
+						'image://data:image/png;base64,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',
+				},
+				{
+					// 传入图形路径
+					name: 'SVG 路径',
+					symbol:
+						'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z',
+				},
+				{ symbol: 'rect', name: '原生 rect' },
+			];
+			var index = 0;
+
+			var option = {
+				toolbox: {
+					feature: {
+						saveAsImage: {},
+					},
+				},
+				xAxis: {
+					type: 'category',
+				},
+				yAxis: {
+					type: 'value',
+				},
+				series: [
+					{
+						data: symbols.map((v, i) => [v.name, i * 10 + 10]),
+						showSymbol: true,
+						type: 'line',
+						label: {
+							normal: {
+								show: true,
+								position: 'bottom',
+								formatter: '{b}',
+							},
+						},
+						symbol(v) {
+							var s = symbols[index++];
+							return s.symbol;
+						},
+						symbolSize: 40,
+					},
+				],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>
