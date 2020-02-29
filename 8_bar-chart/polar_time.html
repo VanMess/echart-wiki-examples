@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			// 生成随机数
+			function generateData(count) {
+				var baseValue = Math.random() * 1000;
+				var time = +new Date(2011, 0, 1);
+				var smallBaseValue;
+
+				function next(idx) {
+					smallBaseValue = idx % 30 === 0 ? Math.random() * 700 : smallBaseValue + Math.random() * 500 - 250;
+					baseValue += Math.random() * 20 - 10;
+					return Math.max(0, Math.round(baseValue + smallBaseValue) + 3000);
+				}
+
+				var categoryData = [];
+				var valueData = [];
+				var result = [];
+
+				for (var i = 0; i < count; i++) {
+					categoryData.push(time);
+					valueData.push(next(i).toFixed(2));
+					time += 1000;
+					result.push([time, next(i).toFixed(2)]);
+				}
+				return result;
+
+				return {
+					categoryData: categoryData,
+					valueData: valueData,
+				};
+			}
+
+			var data = generateData(100);
+			var myChart = echarts.init(document.getElementById('main'));
+
+			var option = {
+				toolbox: {
+					feature: {
+						saveAsImage: {},
+					},
+				},
+				polar: {},
+				radiusAxis: {
+					type: 'time',
+					startAngle: 0,
+				},
+				angleAxis: { type: 'value' },
+				series: [
+					{
+						coordinateSystem: 'polar',
+						data: data,
+						type: 'bar',
+						animation: false,
+					},
+				],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>

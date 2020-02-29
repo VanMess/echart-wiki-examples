@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<button id="btnStart" type="button">开始渲染</button>
+		<div id="main" style="width: 960px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.common.js"></script>
+		<script type="text/javascript">
+			// 生成随机数
+			function generateData(count) {
+				var baseValue = Math.random() * 1000;
+				var time = +new Date(2011, 0, 1);
+				var smallBaseValue;
+
+				function next(idx) {
+					smallBaseValue = idx % 30 === 0 ? Math.random() * 700 : smallBaseValue + Math.random() * 500 - 250;
+					baseValue += Math.random() * 20 - 10;
+					return Math.max(0, Math.round(baseValue + smallBaseValue) + 3000);
+				}
+
+				var categoryData = [];
+				var valueData = [];
+
+				for (var i = 0; i < count; i++) {
+					categoryData.push(echarts.format.formatTime('yyyy-MM-dd\nhh:mm:ss', time));
+					valueData.push(next(i).toFixed(2));
+					time += 1000;
+				}
+
+				return {
+					categoryData: categoryData,
+					valueData: valueData,
+				};
+			}
+
+			var data = generateData(50000);
+			console.log('generate done');
+			var chart = echarts.init(document.getElementById('main'));
+			var option = {
+				title: [
+					{ left: 10, text: 'progressive = 1000' },
+					{ left: '50%', text: 'progressive = 5000' },
+				],
+				grid: [
+					{ top: '10%', left: 10, width: '46%', containLabel: true },
+					{ top: '10%', left: '50%', width: '46%', containLabel: true },
+				],
+				xAxis: [
+					{ type: 'category', data: data.categoryData },
+					{ type: 'category', data: data.categoryData, gridIndex: 1 },
+				],
+				yAxis: [{ type: 'value' }, { type: 'value', gridIndex: 1 }],
+				series: [
+					{
+						data: data.valueData,
+						type: 'bar',
+						large: true,
+						progressive: 1000,
+						progressiveChunkMode: 'mod',
+					},
+					{
+						data: data.valueData,
+						type: 'bar',
+						large: true,
+						progressive: 5000,
+						progressiveChunkMode: 'mod',
+						xAxisIndex: 1,
+						yAxisIndex: 1,
+					},
+				],
+			};
+
+			document.getElementById('btnStart').addEventListener('click', function() {
+				chart.setOption(option);
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<button id="btnStart" type="button">开始渲染</button>
+		<button id="btnInsert" type="button">插入数据</button>
+		<div id="main" style="width: 600px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.common.js"></script>
+		<script type="text/javascript">
+			// 生成随机数
+			var cat = [];
+			for (let i = 0; i < 100; i += 1) {
+				cat.push('Days ' + i);
+			}
+
+			function generateData(count) {
+				var result = [];
+				for (let i = 0; i < count; i++) {
+					result.push(Math.random() * 100);
+				}
+				return result;
+			}
+
+			var myChart = echarts.init(document.getElementById('main'));
+
+			var option = {
+				title: { text: '动画效果示例' },
+				xAxis: { type: 'category', data: cat },
+				yAxis: { type: 'value' },
+				series: [
+					{
+						data: generateData(50),
+						type: 'bar',
+						// 启动动画效果
+						animation: true,
+						animationEasingUpdate: 'elasticOut',
+						animationDurationUpdate: function(index) {
+							return index * 100;
+						},
+					},
+				],
+			};
+			document.getElementById('btnStart').addEventListener('click', function() {
+				myChart.setOption(option);
+			});
+			document.getElementById('btnInsert').addEventListener('click', function() {
+				myChart.appendData({ seriesIndex: 0, data: generateData(50) });
+			});
+		</script>
+	</body>
+</html>
