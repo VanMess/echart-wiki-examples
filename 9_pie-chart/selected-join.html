@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.common.js"></script>
+		<script type="text/javascript">
+			var cats = [
+				{ name: '水果', children: ['苹果', '雪梨', '橙子', '香蕉'] },
+				{ name: '蔬菜', children: ['津白', '紫甘蓝', '苦瓜', '菜心'] },
+				{ name: '水产', children: ['虎皮虾', '青蟹', '鲈鱼', '大闸蟹'] },
+				{ name: '干杂', children: ['红豆', '东北大米', '陈皮', '党参'] },
+			];
+			// 生成随机数据
+			// 不必关注
+			function generateData(cats) {
+				var MAX = 100,
+					MIN = 50;
+				var len = cats.length;
+				var result = { inner: [], outer: [] };
+				for (let i = 0; i < len; i++) {
+					var cat = cats[i];
+					var vector = [];
+					for (let j = 0; j < cat.children.length; j++) {
+						var num = Math.round(Math.random() * (MAX - MIN) + MIN);
+						vector.push({ name: cat.children[j], value: num });
+					}
+					var total = vector.reduce((r, v) => r + v.value, 0);
+					result.inner.push({ name: cat.name, value: total });
+					result.outer = result.outer.concat(vector);
+				}
+				return result;
+			}
+
+			var myChart = echarts.init(document.getElementById('main'));
+			var data = generateData(cats);
+
+			var option = {
+				toolbox: {
+					feature: {
+						saveAsImage: {},
+					},
+				},
+				series: [
+					{
+						type: 'pie',
+						data: data.inner,
+						radius: '40%',
+						label: { position: 'inside' },
+						id: 'inner',
+						selectedMode: 'multiple',
+					},
+					{ type: 'pie', id: 'outer', data: data.outer, radius: ['50%', '80%'], selectedMode: 'multiple' },
+				],
+			};
+			myChart.setOption(option);
+
+			// 找到关联类别
+			function lookup(e) {
+				// 当前操作的项
+				var currentItem = e.name;
+				var isSelected = e.selected[e.name];
+				// 当前操作的序列
+				var seriesId = e.seriesId;
+				if (seriesId === 'inner') {
+					// 内层饼图选中时，子项同步选中
+					var currentCat = cats.find(function(cat) {
+						return cat.name === currentItem;
+					});
+					return { seriesIndex: 1, names: currentCat.children, isSelected: isSelected };
+				} else {
+					// 外层饼图选中时，父类同步选中
+					var parentCat = cats.find(function(cat) {
+						return (
+							cat.children.findIndex(function(subItem) {
+								return subItem === currentItem;
+							}) >= 0
+						);
+					});
+					for (var i = 0; i < parentCat.children.length; i++) {
+						var subItem = parentCat.children[i];
+						if (e.selected[subItem] === true) {
+							return { seriesIndex: 0, names: [parentCat.name], isSelected: true };
+						}
+					}
+					return { seriesIndex: 0, names: [parentCat.name], isSelected: false };
+				}
+			}
+
+			myChart.on('pieselectchanged', function(e) {
+				var target = lookup(e);
+				var names = target.names;
+				var isSelected = target.isSelected;
+				var seriesIndex = target.seriesIndex;
+				for (var i = 0; i < names.length; i++) {
+					// 发出选中动作
+					myChart.dispatchAction({
+						type: isSelected ? 'pieSelect' : 'pieUnSelect',
+						seriesIndex: seriesIndex,
+						name: names[i],
+					});
+				}
+			});
+		</script>
+	</body>
+</html>

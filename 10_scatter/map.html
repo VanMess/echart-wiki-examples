@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 960px;height: 600px"></div>
+
+		<script src="//api.map.baidu.com/api?v=2.0&ak=KOmVjPVUAey1G2E8zNhPiuQ6QiEmAwZu&__ec_v__=20190126"></script>
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script src="//cdn.bootcss.com/echarts/4.5.0/extension/bmap.js"></script>
+		<script type="text/javascript">
+			var myChart = echarts.init(document.getElementById('main'));
+			var data = [
+				{ name: '平顶山', value: [113.29, 33.75, 119, 119, 119] },
+				{ name: '邢台', value: [114.48, 37.05, 119, 119, 119] },
+				{ name: '德州', value: [116.29, 37.45, 120, 120, 120] },
+				{ name: '济宁', value: [116.59, 35.38, 120, 120, 120] },
+				{ name: '荆州', value: [112.239741, 30.335165, 127, 127, 127] },
+				{ name: '宜昌', value: [111.3, 30.7, 130, 130, 130] },
+				{ name: '义乌', value: [120.06, 29.32, 132, 132, 132] },
+				{ name: '丽水', value: [119.92, 28.45, 133, 133, 133] },
+				{ name: '洛阳', value: [112.44, 34.7, 134, 134, 134] },
+				{ name: '秦皇岛', value: [119.57, 39.95, 136, 136, 136] },
+				{ name: '株洲', value: [113.16, 27.83, 143, 143, 143] },
+				{ name: '石家庄', value: [114.48, 38.03, 147, 147, 147] },
+				{ name: '莱芜', value: [117.67, 36.19, 148, 148, 148] },
+				{ name: '常德', value: [111.69, 29.05, 152, 152, 152] },
+				{ name: '保定', value: [115.48, 38.85, 153, 153, 153] },
+				{ name: '湘潭', value: [112.91, 27.87, 154, 154, 154] },
+				{ name: '金华', value: [119.64, 29.12, 157, 157, 157] },
+				{ name: '岳阳', value: [113.09, 29.37, 169, 169, 169] },
+				{ name: '长沙', value: [113, 28.21, 175, 175, 175] },
+				{ name: '衢州', value: [118.88, 28.97, 177, 177, 177] },
+				{ name: '廊坊', value: [116.7, 39.53, 193, 193, 193] },
+				{ name: '菏泽', value: [115.480656, 35.23375, 194, 194, 194] },
+				{ name: '合肥', value: [117.27, 31.86, 229, 229, 229] },
+				{ name: '武汉', value: [114.31, 30.52, 273, 273, 273] },
+				{ name: '大庆', value: [125.03, 46.58, 279, 279, 279] },
+			];
+
+			var option = {
+				toolbox: {
+					feature: {
+						saveAsImage: {},
+					},
+				},
+				bmap: {
+					center: [104.114129, 34.550339],
+					zoom: 5.4,
+					roam: true,
+				},
+				series: [
+					{
+						name: 'pm2.5',
+						type: 'scatter',
+						coordinateSystem: 'bmap',
+						data: data,
+						symbolSize: function(val) {
+							return val[2] / 10;
+						},
+					},
+				],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>

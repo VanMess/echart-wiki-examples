@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 960px;height: 400px"></div>
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.common.js"></script>
+		<script type="text/javascript">
+			function generateData(count) {
+				var result = [];
+				for (var i = 0; i < count; i++) {
+					result.push({ name: 'Day ' + i, value: Math.round(Math.random() * 10 + 100) });
+				}
+				return result;
+			}
+			var myChart = echarts.init(document.getElementById('main'));
+			var data = generateData(5);
+			var option = {
+				toolbox: { feature: { saveAsImage: {} } },
+				xAxis: { type: 'category' },
+				yAxis: { type: 'value' },
+				grid: { left: '50%', width: '45%', containLabel: true },
+				series: [
+					{
+						type: 'pie',
+						radius: '50%',
+						center: ['25%', '50%'],
+						data: data,
+					},
+					{
+						type: 'bar',
+						data: data.map(function(node) {
+							return [node.name, node.value];
+						}),
+					},
+				],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>

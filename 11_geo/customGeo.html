@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/axios/0.19.2/axios.min.js"></script>
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			async function run() {
+				const myChart = echarts.init(document.getElementById('main'));
+				const usaGeo = await axios.get('./USA.json');
+				echarts.registerMap('USA', usaGeo.data, {
+					Alaska: {
+						// 把阿拉斯加移到美国主大陆左下方
+						left: -131,
+						top: 25,
+						width: 15,
+					},
+					Hawaii: {
+						left: -110, // 夏威夷
+						top: 28,
+						width: 5,
+					},
+					'Puerto Rico': {
+						// 波多黎各
+						left: -76,
+						top: 26,
+						width: 2,
+					},
+				});
+
+				const option = {
+					geo: { map: 'USA', roam: true },
+					series: [
+						{
+							type: 'scatter',
+							coordinateSystem: 'geo',
+							data: [
+								[-87.359296, 35.00118, 24],
+								[-90.064905, 36.304691, 12],
+								[-98.311367, 34.995703, 18],
+								[-123.129194, 38.451652, 48],
+							],
+							symbolSize: function(val) {
+								return val[2];
+							},
+						},
+					],
+				};
+				myChart.setOption(option);
+			}
+			run();
+		</script>
+	</body>
+</html>

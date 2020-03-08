@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.common.js"></script>
+		<script type="text/javascript">
+			var myChart = echarts.init(document.getElementById('main'));
+
+			var option = {
+				toolbox: {
+					feature: {
+						saveAsImage: {},
+					},
+				},
+				xAxis: {
+					type: 'category',
+				},
+				yAxis: {
+					type: 'value',
+				},
+				series: [
+					{
+						data: [
+							['Mon', 120, 224],
+							['Tue', 80, 320],
+							['Wed', 140, 1288],
+							['Thu', 192, 64],
+							['Fri', 140, 228],
+							['Sat', 180, 248],
+							['Sun', 178, 240],
+						],
+						type: 'scatter',
+						symbolSize: function(data) {
+							return Math.sqrt(data[2]);
+						},
+					},
+				],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>

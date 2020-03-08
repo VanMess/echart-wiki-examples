@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.common.js"></script>
+		<script type="text/javascript">
+			var myChart = echarts.init(document.getElementById('main'));
+			var option = {
+				toolbox: { feature: { saveAsImage: {} } },
+				series: [
+					{
+						type: 'pie',
+						radius: '60%',
+						data: [
+							{ value: 20, name: 'Mon' },
+							{ value: 932, name: 'Tue' },
+							{ value: 901, name: 'Wed' },
+							{ value: 934, name: 'Thu' },
+							{ value: 1290, name: 'Fri' },
+							{ value: 1330, name: 'Sat' },
+							{ value: 1320, name: 'Sun' },
+						],
+						label: { show: true, position: 'outside' },
+						labelLine: { length: 30, length2: 40 },
+					},
+				],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>

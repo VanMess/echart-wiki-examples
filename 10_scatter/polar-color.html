@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			var myChart = echarts.init(document.getElementById('main'));
+
+			var option = {
+				toolbox: {
+					feature: {
+						saveAsImage: {},
+					},
+				},
+				polar: {},
+				angleAxis: {
+					type: 'category',
+					startAngle: 0,
+					data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+				},
+				radiusAxis: { type: 'value' },
+				series: [
+					{
+						coordinateSystem: 'polar',
+						data: [
+							[120, 'Mon', 224],
+							[80, 'Tue', 320],
+							[140, 'Wed', 1288],
+							[192, 'Thu', 64],
+							[140, 'Fri', 228],
+							[180, 'Sat', 248],
+							[178, 'Sun', 240],
+						],
+						type: 'scatter',
+						itemStyle: {
+							color: function(node) {
+								return `hsla(${node.data[2] % 360}, 100%, 50%, 0.8)`;
+							},
+						},
+					},
+				],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>

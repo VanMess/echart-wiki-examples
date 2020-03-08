@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			var myChart = echarts.init(document.getElementById('main'));
+
+			var option = {
+				toolbox: {
+					feature: {
+						saveAsImage: {},
+					},
+				},
+				calendar: {
+					top: 'middle',
+					left: 'center',
+					cellSize: 40,
+					range: ['2019-02-01', '2019-03-31'],
+				},
+				series: [
+					{
+						type: 'scatter',
+						coordinateSystem: 'calendar',
+						symbolSize: 15,
+						calendarIndex: 0,
+						symbolSize: function(data) {
+							return Math.sqrt(data[1]);
+						},
+						itemStyle: {
+							color: function(node) {
+								return `hsla(${node.data[1] % 360}, 100%, 50%, 0.8)`;
+							},
+						},
+						data: [
+							[1549036800000, 260],
+							[new Date(2019, 1, 6), 200],
+							[new Date(2019, 1, 14), 279],
+							[new Date(2019, 2, 4), 847],
+							[new Date(2019, 2, 10), 241],
+							[new Date(2019, 2, 20), 411],
+							[new Date(2019, 1, 28), 985],
+						],
+					},
+				],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>

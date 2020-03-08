@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.common.js"></script>
+		<script type="text/javascript">
+			// 数据来源丁香园
+			// 截止 2020年3月1日
+			var myChart = echarts.init(document.getElementById('main'));
+			var option = {
+				toolbox: { feature: { saveAsImage: {} } },
+				title: { text: '2020年3月1日 累积确诊', textAlign: 'center', left: '50%', top: 10 },
+				series: [
+					{
+						type: 'pie',
+						label: { position: 'inside' },
+						radius: '45%',
+						data: [
+							{ value: 66907, name: '湖北' },
+							{ value: 13065, name: '其他省市' },
+						],
+					},
+					{
+						type: 'pie',
+						label: { position: 'outside' },
+						radius: ['50%', '80%'],
+						data: [
+							{ value: 49122, name: '武汉' },
+							{ value: 3518, name: '孝感' },
+							{ value: 2905, name: '黄冈' },
+							{ value: 1391, name: '鄂州' },
+							{ value: 1579, name: '荆州' },
+							{ value: 1307, name: '随州' },
+							{ value: 931, name: '宜昌' },
+							{ value: 1175, name: '襄阳' },
+							{ value: 925, name: '荆门' },
+							{ value: 1014, name: '黄石' },
+							{ value: 672, name: '十堰' },
+							{ value: 836, name: '咸宁' },
+							{ value: 575, name: '仙桃' },
+							{ value: 496, name: '天门' },
+							{ value: 198, name: '潜江' },
+							{ value: 252, name: '恩施州' },
+							{ value: 11, name: '神农架林区' },
+							{
+								value: 13065,
+								name: '其他省市',
+								label: { show: false, position: 'inside' },
+								color: 'transparent',
+							},
+						],
+					},
+				],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.common.js"></script>
+		<script type="text/javascript">
+			var cats = [
+				{ name: '水果', children: ['苹果', '雪梨', '橙子', '香蕉'] },
+				{ name: '蔬菜', children: ['津白', '紫甘蓝', '苦瓜', '菜心'] },
+				{ name: '水产', children: ['虎皮虾', '青蟹', '鲈鱼', '大闸蟹'] },
+				{ name: '干杂', children: ['红豆', '东北大米', '陈皮', '党参'] },
+			];
+			// 生成随机数据
+			// 不必关注
+			function generateData(cats) {
+				var MAX = 100,
+					MIN = 0;
+				var len = cats.length;
+				var result = { inner: [], outer: [] };
+				for (let i = 0; i < len; i++) {
+					var cat = cats[i];
+					var vector = [];
+					for (let j = 0; j < cat.children.length; j++) {
+						var num = Math.round(Math.random() * (MAX - MIN) + MIN);
+						vector.push({ name: cat.children[j], value: num });
+					}
+					var total = vector.reduce((r, v) => r + v.value, 0);
+					result.inner.push({ name: cat.name, value: total });
+					result.outer = result.outer.concat(vector);
+				}
+				return result;
+			}
+
+			var myChart = echarts.init(document.getElementById('main'));
+			var data = generateData(cats);
+
+			var option = {
+				toolbox: {
+					feature: {
+						saveAsImage: {},
+					},
+				},
+				series: [
+					{ type: 'pie', data: data.inner, radius: '40%', label: { position: 'inside' } },
+					{ type: 'pie', data: data.outer, radius: ['50%', '80%'], roseType: 'radius' },
+				],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>
