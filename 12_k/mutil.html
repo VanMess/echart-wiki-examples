@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 960px;height: 400px"></div>
+		<script src="//cdn.bootcss.com/axios/0.19.2/axios.min.js"></script>
+		<script src="//cdn.bootcss.com/moment.js/2.24.0/moment.min.js"></script>
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			// 解析系列中的类目数据
+			function retriveDates(series) {
+				const categories = [];
+				const len = series.length;
+				for (let i = 0; i < len; i++) {
+					// 找出尚未收集的时间值
+					const dates = series[i].data
+						.map(([date]) => date)
+						.filter(date => categories.findIndex(cat => cat === date) < 0);
+					// 批量插入
+					categories.splice(categories.length, 0, ...dates);
+				}
+				return categories;
+			}
+
+			// 借助 moment.js 为时间值排序
+			function sort(categories) {
+				const format = 'YYYY-MM-DD';
+				return categories.sort((d1, d2) => moment(d1, format) - moment(d2, format));
+			}
+
+			// 根据类目序列，调整系列数值的位置
+			function reschedule(series, categories) {
+				return series.map(({ sku, data }, index) => {
+					return {
+						name: sku,
+						type: 'k',
+						data: categories.map(cat => {
+							const index = data.findIndex(([c]) => c === cat);
+							return index >= 0 ? data[index].slice(1) : [];
+						}),
+					};
+				});
+			}
+
+			async function run() {
+				const myChart = echarts.init(document.getElementById('main'));
+				const { data: statics } = await axios.get('./statics.json');
+				const dates = retriveDates(statics);
+				const sortedDates = sort(dates);
+
+				const themeColors = ['#d87c7c', '#919e8b', '#d7ab82', '#6e7074'];
+				const series = reschedule(statics, sortedDates)
+					// 为系列设置不同的色值
+					.map((serie, index) => {
+						const color = themeColors[index];
+						const liftColor = echarts.color.lift(color, 0.4);
+						return {
+							...serie,
+							itemStyle: {
+								color: color,
+								color0: liftColor,
+								borderColor: color,
+								borderColor0: liftColor,
+							},
+						};
+					});
+
+				const option = {
+					toolbox: { feature: { saveAsImage: {} } },
+					xAxis: { type: 'category', data: sortedDates },
+					yAxis: { type: 'value' },
+					legend: { data: series.map(s => s.name) },
+					series,
+				};
+				myChart.setOption(option);
+			}
+			run();
+		</script>
+	</body>
+</html>

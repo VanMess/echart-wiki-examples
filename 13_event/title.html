@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.common.js"></script>
+		<script type="text/javascript">
+			const myChart = echarts.init(document.getElementById('main'));
+
+			const option = {
+				title: {
+					text: 'test',
+					// 通过 triggerEvent 显式声明
+					// 该组件将触发事件回调
+					triggerEvent: true,
+				},
+				xAxis: {
+					type: 'category',
+					data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+					triggerEvent: true,
+				},
+				yAxis: {
+					type: 'value',
+					triggerEvent: true,
+				},
+				series: [
+					{
+						data: [820, 932, 901, 934, 1290, 1330, 1320],
+						type: 'bar',
+					},
+				],
+			};
+			myChart.setOption(option);
+
+			myChart.on('click', function(e) {
+				console.log(`click invoke at ${e.componentType}`);
+			});
+		</script>
+	</body>
+</html>

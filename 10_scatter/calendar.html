@@ -24,6 +24,8 @@
 					left: 'center',
 					cellSize: 40,
 					range: ['2019-02-01', '2019-03-31'],
+					silent: false,
+					triggerEvent: true,
 				},
 				series: [
 					{
@@ -52,6 +54,10 @@
 				],
 			};
 			myChart.setOption(option);
+
+			myChart.on('click', e => {
+				console.log(e);
+			});
 		</script>
 	</body>
 </html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+		<script src="//cdn.bootcss.com/axios/0.19.2/axios.min.js"></script>
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			async function run() {
+				// 数据源文件
+				// 合计62条数据记录
+				const { data: productions } = await axios.get('./fresh.json');
+
+				const myChart = echarts.init(document.getElementById('main'));
+				const option = {
+					toolbox: {
+						feature: {
+							saveAsImage: {},
+						},
+					},
+					polar: {},
+					radiusAxis: {
+						// 设定径向轴为类别类型
+						type: 'category',
+						data: productions.map(p => p.name),
+					},
+					angleAxis: { type: 'value' },
+					series: [
+						{
+							coordinateSystem: 'polar',
+							data: productions.map(({ name, price }) => [name, price]),
+							type: 'bar',
+						},
+					],
+					label: { show: true },
+				};
+				myChart.setOption(option);
+			}
+			run();
+		</script>
+	</body>
+</html>

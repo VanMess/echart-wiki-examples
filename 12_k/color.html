@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			const myChart = echarts.init(document.getElementById('main'));
+			const option = {
+				toolbox: { feature: { saveAsImage: {} } },
+				xAxis: { type: 'category', data: ['2017-10-24', '2017-10-25', '2017-10-26', '2017-10-27'] },
+				yAxis: { type: 'value' },
+				series: [
+					{
+						data: [
+							// 开盘价、收盘价、最高价、最低价
+							[20, 30, 10, 35],
+							[40, 35, 30, 55],
+							[33, 38, 32, 40],
+							[40, 48, 32, 50],
+						],
+						itemStyle: {
+							color: '#d87c7c',
+							color0: '#919e8b',
+							borderColor: '#d87c7c',
+							borderColor0: '#919e8b',
+						},
+						type: 'k',
+					},
+				],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>
