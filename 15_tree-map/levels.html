@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			const myChart = echarts.init(document.getElementById('main'));
+
+			const option = {
+				series: [
+					{
+						type: 'treemap',
+						label: {
+							position: 'top',
+							color: '#ddd',
+						},
+						data: [
+							{ name: '分类 1', children: [{ name: '分类 1-1', value: 10 }] },
+							{
+								name: '分类 2',
+								label: { position: 'inside' },
+								children: [
+									{ name: '分类 2-1', value: 10 },
+									{ name: '分类 2-2', value: 34 },
+									{ name: '分类 2-3', value: 12 },
+								],
+							},
+						],
+					},
+				],
+				levels: [
+					// 配置第一层级节点属性
+					{ position: 'bottom' },
+				],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>

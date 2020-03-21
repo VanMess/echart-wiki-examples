@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			const myChart = echarts.init(document.getElementById('main'));
+
+			const option = {
+				toolbox: { feature: { saveAsImage: {} } },
+				legend: {
+					data: ['职员A', '职员B'],
+					left: 0,
+				},
+				radar: {
+					indicator: [
+						{ name: '工作年限' },
+						{ name: '薪资' },
+						{ name: '技术评分', max: 100 },
+						{ name: '态度评分', max: 100 },
+						{ name: '稳定性', max: 10 },
+						{ name: '近半年平均绩效', max: 5 },
+					],
+				},
+				series: [
+					{
+						type: 'radar',
+						data: [
+							{
+								value: [3.6, 32800, 94, 74, 4, 3.5],
+								name: '职员A',
+							},
+							{
+								value: [2, 21800, 76, 86, 8, 4.3],
+								name: '职员B',
+							},
+						],
+					},
+				],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>

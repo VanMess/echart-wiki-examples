@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			const myChart = echarts.init(document.getElementById('main'));
+			function generateData(count) {
+				const random = (min, max) => Math.round(Math.random() * (max - min) + min);
+				const genNode = title => ({ name: title, value: random(100, 300) });
+				const result = [];
+				for (let i = 1; i <= random(3, 6); i++) {
+					const children = [];
+					for (let j = 1; j <= random(3, 6); j++) {
+						children.push(genNode(`分类 ${i}-${j}`));
+					}
+					result.push({
+						name: `分类 ${i}`,
+						children,
+						value: children.reduce((r, { value }) => r + value, 0),
+					});
+				}
+				return result;
+			}
+
+			const option = {
+				series: [
+					{
+						type: 'treemap',
+						name: 'root',
+						data: generateData(),
+						roam: false,
+					},
+				],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>
