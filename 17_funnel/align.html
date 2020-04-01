@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			const myChart = echarts.init(document.getElementById('main'));
+
+			const option = {
+				toolbox: { feature: { saveAsImage: {} } },
+				series: [
+					{
+						type: 'funnel',
+						funnelAlign: 'right',
+						width: '40%',
+						left: '10%',
+						label: { position: 'left' },
+						data: [
+							{ value: 60, name: '访问' },
+							{ value: 40, name: '咨询' },
+							{ value: 20, name: '订单' },
+							{ value: 80, name: '点击' },
+							{ value: 100, name: '触达' },
+						],
+					},
+					{
+						type: 'funnel',
+						width: '40%',
+						left: '50%',
+						funnelAlign: 'left',
+						data: [
+							{ value: 30, name: '访问' },
+							{ value: 10, name: '咨询' },
+							{ value: 5, name: '订单' },
+							{ value: 50, name: '点击' },
+							{ value: 100, name: '触达' },
+						],
+					},
+				],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>

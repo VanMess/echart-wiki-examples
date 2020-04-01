@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			const myChart = echarts.init(document.getElementById('main'));
+
+			const option = {
+				toolbox: { feature: { saveAsImage: {} } },
+				xAxis: { type: 'category' },
+				yAxis: { type: 'value' },
+				label: { show: true, position: 'top' },
+				tooltip: { show: true },
+				legend: { show: true },
+				dataset: {
+					source: [
+						['Matcha Latte', 43.3, 85.8, 93.7],
+						['Milk Tea', 83.1, 73.4, 55.1],
+						['Cheese Cocoa', 86.4, 65.2, 82.5],
+						['Walnut Brownie', 72.4, 53.9, 39.1],
+					],
+				},
+				series: [
+					{
+						type: 'bar',
+						dimensions: [
+							// 指定第一列为类目类型
+							{ name: 'Product', type: 'ordinal' },
+							// 指定第二列为数据对象
+							{ name: '2015' },
+						],
+					},
+					{
+						type: 'bar',
+						dimensions: [
+							{ name: 'Product', type: 'ordinal' },
+							// 忽略第二列
+							null,
+							{ name: '2016' },
+						],
+					},
+					{
+						type: 'bar',
+						dimensions: [
+							{ name: 'Product', type: 'ordinal' },
+							// 忽略第二、第三列
+							null,
+							null,
+							{ name: '2017' },
+						],
+					},
+				],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>

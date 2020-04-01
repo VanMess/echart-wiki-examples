@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 960px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.common.js"></script>
+		<script type="text/javascript">
+			const myChart = echarts.init(document.getElementById('main'));
+
+			const option = {
+				toolbox: { feature: { saveAsImage: {} } },
+				dataset: {
+					dimensions: [
+						{ name: 'Product', type: 'ordinal' },
+						{ name: '2015' },
+						{ name: '2016' },
+						{ name: '2017' },
+					],
+					source: [
+						['Matcha Latte', 43.3, 85.8, 93.7],
+						['Milk Tea', 83.1, 73.4, 55.1],
+						['Cheese Cocoa', 86.4, 65.2, 82.5],
+						['Walnut Brownie', 72.4, 53.9, 39.1],
+					],
+				},
+				xAxis: { type: 'category' },
+				yAxis: { type: 'value' },
+				label: { show: true, position: 'top' },
+				grid: { width: '40%' },
+				series: [
+					// 柱状图通过 x、y 属性指定编码规则
+					{ type: 'bar', encode: { x: 'Product', y: '2015' } },
+					{ type: 'bar', encode: { x: 'Product', y: '2016' } },
+					{ type: 'bar', encode: { x: 'Product', y: '2017' } },
+					{
+						type: 'pie',
+						center: ['75%', '50%'],
+						radius: '50%',
+						// 饼图通过 value、itemName 属性指定编码规则
+						encode: { value: '2016', itemName: 'Product' },
+					},
+				],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>
