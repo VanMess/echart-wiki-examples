@@ -21,13 +21,21 @@
 				yAxis: { type: 'value' },
 				tooltip: {
 					show: true,
-					// 设定为按坐标轴触发
 					trigger: 'axis',
+					// 定义提示框内容
+					formatter: 'Data Item:<br /> {a0}: <strong>{c0}</strong> <br /> {a1}: <strong>{c1}</strong>',
 				},
 				series: [
 					{
 						data: [820, 932, 901, 934, 1290, 1330, 1320],
 						type: 'line',
+						name: 'line-1',
+						smooth: true,
+					},
+					{
+						data: [863, 580, 708, 464, 680, 533, 695],
+						type: 'line',
+						name: 'line-2',
 						smooth: true,
 					},
 				],

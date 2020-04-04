@@ -21,8 +21,9 @@
 				yAxis: { type: 'value' },
 				tooltip: {
 					show: true,
-					// 设定为按坐标轴触发
-					trigger: 'axis',
+					trigger: 'item',
+					// 定义提示框内容
+					formatter: 'Data Item:<br /> {b}: <strong>{c}</strong>',
 				},
 				series: [
 					{

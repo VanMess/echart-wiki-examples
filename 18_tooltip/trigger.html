@@ -12,6 +12,7 @@
 		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
 		<script type="text/javascript">
 			const myChart = echarts.init(document.getElementById('main'));
+			const data = [820, 932, 901, 934, 1290, 1330, 1320];
 
 			const option = {
 				xAxis: {
@@ -21,8 +22,7 @@
 				yAxis: { type: 'value' },
 				tooltip: {
 					show: true,
-					// 设定为按坐标轴触发
-					trigger: 'axis',
+					trigger: 'item',
 				},
 				series: [
 					{
@@ -33,6 +33,12 @@
 				],
 			};
 			myChart.setOption(option);
+
+			const len = data.length;
+			(function triggerTooltip(index) {
+				myChart.dispatchAction({ type: 'showTip', seriesIndex: 0, dataIndex: index % len });
+				// setTimeout(() => triggerTooltip(index + 1), 500);
+			})(0);
 		</script>
 	</body>
 </html>

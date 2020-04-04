@@ -11,6 +11,9 @@
 
 		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
 		<script type="text/javascript">
+			const fetchSomeThing = cb => {
+				setTimeout(cb, 1000);
+			};
 			const myChart = echarts.init(document.getElementById('main'));
 
 			const option = {
@@ -21,8 +24,22 @@
 				yAxis: { type: 'value' },
 				tooltip: {
 					show: true,
-					// 设定为按坐标轴触发
-					trigger: 'axis',
+					trigger: 'item',
+					// 定义提示框内容
+					// formatter(params) {
+					// 	const { seriesName, name, data } = params;
+					// 	return `${name}: <br />${seriesName}:${data}`;
+					// },
+					formatter(params, ticket, cb) {
+						// 执行异步操作
+						setTimeout(() => {
+							// 异步操作完成后，需调用 cb 回调
+							// 传入 ticket 及提示内容字符串
+							cb(ticket, 'Async Success');
+						}, 1000);
+						// 立即返回过渡态的提示内容
+						return 'Loading';
+					},
 				},
 				series: [
 					{
