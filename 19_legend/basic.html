@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			const myChart = echarts.init(document.getElementById('main'));
+
+			const option = {
+				toolbox: { feature: { saveAsImage: {} } },
+				xAxis: {
+					type: 'category',
+					data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+				},
+				yAxis: { type: 'value' },
+				legend: { show: true },
+				series: [
+					{
+						name: '邮件营销',
+						type: 'line',
+						stack: '总量',
+						areaStyle: {},
+						data: [120, 132, 101, 134, 90, 230, 210],
+					},
+					{
+						name: '联盟广告',
+						type: 'line',
+						stack: '总量',
+						areaStyle: {},
+						data: [220, 182, 191, 234, 290, 330, 310],
+					},
+					{
+						name: '视频广告',
+						type: 'line',
+						stack: '总量',
+						areaStyle: {},
+						data: [150, 232, 201, 154, 190, 330, 410],
+					},
+					{
+						name: '直接访问',
+						type: 'line',
+						stack: '总量',
+						areaStyle: {},
+						data: [320, 332, 301, 334, 390, 330, 320],
+					},
+					{
+						name: '搜索引擎',
+						type: 'line',
+						stack: '总量',
+						areaStyle: {},
+						data: [820, 932, 901, 934, 1290, 1330, 1320],
+					},
+				],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>
