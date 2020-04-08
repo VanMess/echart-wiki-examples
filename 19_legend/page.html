@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px; height: 400px;"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			const myChart = echarts.init(document.getElementById('main'));
+			function generateSeries(len = 7) {
+				const random = (min, max) => Math.round(Math.random() * (max - min) + min);
+				const series = [];
+				for (let i = 0; i < len; i++) {
+					const data = [];
+					for (let j = 0; j < 7; j++) {
+						data.push(random(0, 800));
+					}
+					series.push({ name: `series-${i + 1}`, type: 'line', smooth: true, data });
+				}
+				return series;
+			}
+			const series = generateSeries(20);
+
+			const option = {
+				toolbox: { feature: { saveAsImage: {} }, top: 20 },
+				xAxis: {
+					type: 'category',
+					data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+				},
+				yAxis: { type: 'value' },
+				legend: {
+					show: true,
+					selected: { [series[0].name]: true, [series[1].name]: false },
+				},
+				series: series,
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>

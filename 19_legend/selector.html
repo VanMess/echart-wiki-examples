@@ -21,16 +21,9 @@
 				},
 				yAxis: { type: 'value' },
 				legend: {
-					// 指定图例数据项
-					// 注意此时不必指定 show 属性
-					data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎'],
-					selected: {
-						邮件营销: false,
-						联盟广告: true,
-						视频广告: false,
-						直接访问: true,
-						搜索引擎: true,
-					},
+					show: true,
+					selector: true,
+					selectedMode: 'multiple',
 				},
 				series: [
 					{
