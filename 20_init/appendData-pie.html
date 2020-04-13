@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<button id="cd">c</button>
+		<div id="main" style="width: 100%; height: 400px;"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			const myChart = echarts.init(document.getElementById('main'));
+			let len = 0;
+			const random = (min = 0, max = 180) => ({
+				name: `X-${len++}`,
+				value: Math.round(Math.random() * (max - min) + min),
+			});
+
+			const option = {
+				series: [
+					{
+						type: 'pie',
+						data: [random(), random()],
+					},
+				],
+			};
+			myChart.setOption(option);
+			window.addEventListener('resize', myChart.resize);
+		</script>
+	</body>
+</html>

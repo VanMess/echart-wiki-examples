@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<button id="cd">c</button>
+		<div id="main" style="width: 600px; height: 400px;"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			const myChart = echarts.init(document.getElementById('main'));
+			let len = 0;
+			const random = (min = 0, max = 180) => Math.round(Math.random() * (max - min) + min);
+			const range = (from, to) => {
+				const result = [];
+				for (let i = from; i <= to; i++) {
+					result.push(`X-${i}`);
+				}
+				return result;
+			};
+
+			const option = {
+				// appendData 接口不会更改初始渲染后的任何组件
+				// 所以需要预留足够的空间来容纳追加的图案
+				xAxis: { type: 'category', data: range(1, 20) },
+				// 同样的，在 y 轴上也需要设定好序列的最大值，以容纳追加的图案
+				yAxis: { type: 'value', max: 180 },
+				series: [
+					{
+						type: 'bar',
+						data: [random(), random()],
+					},
+				],
+			};
+			myChart.setOption(option);
+			document.getElementById('cd').onclick = () => {
+				setInterval(() => {
+					const dd = myChart.appendData({ seriesIndex: 0, data: [random()] });
+					debugger;
+					console.log(myChart.getModel());
+				}, 300);
+			};
+		</script>
+	</body>
+</html>

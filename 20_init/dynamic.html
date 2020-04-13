@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+
+		<style>
+			html,
+			body {
+				height: 100%;
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main" style="width: 100%; height: 100%;"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			const random = (min, max) => Math.round(Math.random() * (max - min) + min);
+			const myChart = echarts.init(document.getElementById('main'));
+
+			const option = {
+				toolbox: { feature: { saveAsImage: {} } },
+				xAxis: {
+					type: 'category',
+					data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+				},
+				yAxis: { type: 'value' },
+				series: [
+					{
+						type: 'line',
+						data: [820, 932, 901, 934, 1290, 1330, 1320],
+					},
+				],
+			};
+			myChart.setOption(option);
+
+			setInterval(() => {
+				myChart.setOption(
+					{ series: [{ data: [820, 932, 901, 934, 1290, 1330, random(1000, 1400)] }] },
+					false,
+					true
+				);
+			}, 100);
+		</script>
+	</body>
+</html>
