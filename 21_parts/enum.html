@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 960px; height: 480px;"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			const random = (min, max) => Math.round(Math.random() * (max - min) + min);
+			const myChart = echarts.init(document.getElementById('main'));
+			const generateData = (count) => {
+				const result = [];
+				for (let i = 1; i <= count; i++) {
+					result.push([`X-${i}`, random(80, 300)]);
+				}
+				return result;
+			};
+
+			const baseOption = {
+				toolbox: {
+					feature: {
+						dataZoom: {
+							yAxisIndex: 'none',
+						},
+						restore: {},
+						saveAsImage: {},
+					},
+				},
+				xAxis: {
+					type: 'category',
+				},
+				yAxis: { type: 'value' },
+				legend: { show: true },
+				color: ['#003333'],
+				grid: { right: 120, bottom: 120 },
+				title: { text: 'Echarts 组成' },
+				timeline: { data: ['2017', '2018', '2019', '2020'], bottom: 40 },
+				tooltip: { show: true },
+				dataZoom: [
+					{
+						startValue: 'X1',
+					},
+					{
+						type: 'inside',
+					},
+				],
+				visualMap: {
+					right: 10,
+					bottom: 10,
+					type: 'continuous',
+					inRange: {
+						color: ['#00FF00', '#00CCCC'],
+					},
+					outOfRange: {
+						color: '#bbb',
+					},
+				},
+
+				series: [{ type: 'bar', name: '随机柱状图' }],
+			};
+			myChart.setOption({
+				baseOption,
+				options: [
+					{
+						series: [
+							{
+								data: generateData(80),
+							},
+						],
+					},
+					{
+						series: [
+							{
+								data: generateData(80),
+							},
+						],
+					},
+					{
+						series: [
+							{
+								data: generateData(80),
+							},
+						],
+					},
+					{
+						series: [
+							{
+								data: generateData(80),
+							},
+						],
+					},
+				],
+			});
+		</script>
+	</body>
+</html>

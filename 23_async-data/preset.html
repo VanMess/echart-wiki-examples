@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<button id="c">c</button>
+		<div id="main" style="width: 600px; height: 400px;"></div>
+
+		<script src="//cdn.bootcss.com/axios/0.19.2/axios.min.js"></script>
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			function fetchData() {
+				return new Promise((r) => {
+					setTimeout(() => {
+						r([27, 32, 69, 127, 147, 76, 86]);
+					}, 3000);
+				});
+			}
+			const myChart = echarts.init(document.getElementById('main'));
+
+			document.getElementById('c').onclick = async () => {
+				const option = {
+					xAxis: { type: 'category', data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] },
+					yAxis: { type: 'value' },
+					series: [{ type: 'bar' }],
+				};
+				// 提前提供基本配置
+				myChart.setOption(option);
+
+				const data = await fetchData();
+
+				const option2 = {
+					series: [{ data: data }],
+				};
+				// 数据加载完毕后再提供数据配置
+				myChart.setOption(option2);
+			};
+		</script>
+	</body>
+</html>

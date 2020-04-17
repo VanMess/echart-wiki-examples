@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px; height: 400px;"></div>
+
+		<script src="//cdn.bootcss.com/axios/0.19.2/axios.min.js"></script>
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			// 使用 promise 模拟异步操作
+			function fetchData() {
+				return new Promise((r) => {
+					setTimeout(() => {
+						r([27, 32, 69, 127, 147, 76, 86]);
+						// 延迟3s返回，模拟耗时请求
+					}, 3000);
+				});
+			}
+
+			// await 语句必须包进async函数
+			(async () => {
+				// 1. 初始化图表实例
+				const myChart = echarts.init(document.getElementById('main'));
+				// 2. 触发加载动画
+				myChart.showLoading();
+				// 3. 调用异步接口加载数据
+				const data = await fetchData();
+
+				const option = {
+					xAxis: { type: 'category', data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] },
+					yAxis: { type: 'value' },
+					series: [{ type: 'bar', data: data }],
+				};
+				// 4. 设置图表配置
+				myChart.setOption(option);
+				// 5. 隐藏加载动画
+				myChart.hideLoading();
+			})();
+		</script>
+	</body>
+</html>

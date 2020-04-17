@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<button id="c">c</button>
+		<div id="main" style="width: 600px; height: 400px;"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			const myChart = echarts.init(document.getElementById('main'));
+			const weeks = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+			const data = [27, 32, 69, 127, 147, 76, 86];
+
+			const option = {
+				xAxis: { type: 'category', data: weeks },
+				yAxis: { type: 'value' },
+				series: [{ type: 'bar', data: data, emphasis: { itemStyle: { color: '#336666' } } }],
+			};
+			myChart.setOption(option);
+
+			let isStarted = false;
+			document.getElementById('c').onclick = () => {
+				if (isStarted === true) {
+					return;
+				}
+				let cursor = -1;
+				setInterval(() => {
+					if (cursor >= 0) {
+						myChart.dispatchAction({ type: 'downplay', seriesIndex: 0, dataIndex: cursor % data.length });
+					}
+					myChart.dispatchAction({
+						type: 'highlight',
+						seriesIndex: 0,
+						dataIndex: (cursor += 1) % data.length,
+					});
+				}, 500);
+				isStarted = true;
+			};
+		</script>
+	</body>
+</html>
