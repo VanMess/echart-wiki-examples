@@ -7,30 +7,31 @@
 		<title>Echarts Example</title>
 	</head>
 	<body>
-		<div id="main" style="width: 600px; height: 400px;"></div>
+		<div id="main" style="width: 200px; height: 200px;"></div>
+		<div>tes</div>
 
 		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
 		<script type="text/javascript">
 			const myChart = echarts.init(document.getElementById('main'));
 
 			const option = {
-				xAxis: {
-					type: 'category',
-					data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-				},
-				yAxis: { type: 'value' },
-				tooltip: {
-					show: true,
-					// 设定为按坐标轴触发
-					trigger: 'axis',
-				},
-				series: [
-					{
-						data: [820, 932, 901, 934, 1290, 1330, 1320],
-						type: 'line',
-						smooth: true,
+				toolbox: {
+					feature: {
+						saveAsImage: {},
 					},
-				],
+				},
+				title: {
+					text: 'Hello {strong| imooc}',
+					textStyle: {
+						rich: {
+							strong: {
+								fontWeight: 'bold',
+								fontSize: 30,
+								color: 'red',
+							},
+						},
+					},
+				},
 			};
 			myChart.setOption(option);
 		</script>

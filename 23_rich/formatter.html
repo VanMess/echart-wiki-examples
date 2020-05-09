@@ -30,6 +30,16 @@
 					{
 						data: [820, 932, 901, 934, 1290, 1330, 1320],
 						type: 'line',
+						name: 'tc',
+						label: {
+							show: true,
+							formatter: `{title|{a}}\n{name|{b}}: {value|{c}}`,
+							rich: {
+								title: { fontSize: 18, color: '#000' },
+								name: { color: '#333' },
+								value: { fontWeight: 'bold', color: '#000' },
+							},
+						},
 					},
 				],
 			};
