@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 1020px; height: 400px;"></div>
+		<button id="export">export png</button>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			const random = (min, max) => Math.round(Math.random() * (max - min) + min);
+			const myChart = echarts.init(document.getElementById('main'));
+
+			const option = {
+				toolbox: { feature: { saveAsImage: {} } },
+				dataZoom: [{ type: 'slider', xAxisIndex: 0, start: 14, end: 50 }],
+				grid: {},
+				xAxis: { type: 'category' },
+				yAxis: { type: 'value' },
+				series: [
+					{
+						data: genSeriesData(20),
+						type: 'bar',
+					},
+				],
+			};
+			myChart.setOption(option);
+
+			document.getElementById('export').addEventListener('click', () => {
+				const dz = myChart.getModel().option.dataZoom[0];
+				// 记录当前时刻的偏移值
+				const oldStart = dz.start;
+				const oldEnd = dz.end;
+
+				// 通过 action 将dataZoom组件数值范围设置为 0%-100%
+				myChart.dispatchAction({ type: 'dataZoom', start: 0, end: 100 });
+				// 监听渲染完成事件
+				myChart.on('finished', download);
+
+				function download() {
+					const img = myChart.getDataURL({
+						backgroundColor: '#fff',
+						// 导出时排除 dataZoom 组件
+						excludeComponents: ['toolbox', 'dataZoom'],
+						pixelRatio: 1,
+					});
+					const anchor = document.createElement('a');
+					anchor.href = img;
+					anchor.setAttribute('download', 'test.jpeg');
+					anchor.click();
+					// 移除事件监听，避免多次导出
+					myChart.off('finished', download);
+
+					myChart.dispatchAction({ type: 'dataZoom', start: oldStart, end: oldEnd });
+				}
+			});
+
+			function genSeriesData(len) {
+				const result = [];
+				for (let i = 0; i < len; i += 1) {
+					const node = [`S${i + 1}`, random(10, 100)];
+					result.push(node);
+				}
+				return result;
+			}
+		</script>
+	</body>
+</html>

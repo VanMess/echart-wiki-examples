@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+		<style>
+			.ec {
+				display: inline-block;
+				width: 340px;
+				height: 300px;
+				font-size: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="ec1" class="ec"></div>
+		<div id="ec2" style="position: absolute; left: 400px; top: 400px;" class="ec"></div>
+		<div>
+			<button id="export">导出图片</button>
+		</div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.common.js"></script>
+		<script type="text/javascript">
+			const opt1 = {
+				legend: {},
+				grid: { containLabel: true },
+				xAxis: { type: 'category' },
+				yAxis: { type: 'value' },
+				series: [
+					{
+						name: 'line',
+						data: [
+							['Mon', 820],
+							['Tue', 932],
+							['Wed', 901],
+							['Thu', 934],
+							['Fri', 1290],
+							['Sat', 1330],
+							['Sun', 1320],
+							['Sunc', 1320],
+						],
+						type: 'line',
+					},
+				],
+			};
+			const opt2 = {
+				series: [
+					{
+						data: [
+							{ name: 'Mon', value: 820 },
+							{ name: 'Tue', value: 932 },
+							{ name: 'Wed', value: 901 },
+							{ name: 'Thu', value: 934 },
+							{ name: 'Fri', value: 1290 },
+							{ name: 'Sat', value: 1330 },
+							{ name: 'Sun', value: 1320 },
+						],
+						type: 'pie',
+					},
+				],
+			};
+
+			const ec1 = echarts.init(document.getElementById('ec1'));
+			ec1.setOption(opt1);
+			const ec2 = echarts.init(document.getElementById('ec2'));
+			ec2.setOption(opt2);
+
+			echarts.connect([ec1, ec2]);
+
+			document.getElementById('export').addEventListener('click', function saveAsImg(chart) {
+				const img = ec1.getConnectedDataURL({
+					backgroundColor: '#fff',
+					pixelRatio: 3,
+					type: 'jpeg',
+					excludeComponents: ['legend'],
+				});
+				const anchor = document.createElement('a');
+				anchor.href = img;
+				anchor.setAttribute('download', 'test.jpeg');
+				anchor.click();
+			});
+		</script>
+	</body>
+</html>

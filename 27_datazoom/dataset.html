@@ -11,30 +11,41 @@
 
 		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
 		<script type="text/javascript">
+			const random = (min, max) => Math.round(Math.random() * (max - min) + min);
 			const myChart = echarts.init(document.getElementById('main'));
-			const dataset = [
-				['product', '2015', '2016', '2017'],
-				['Matcha Latte', 43.3, 85.8, 93.7],
-				['Milk Tea', 83.1, 73.4, 55.1],
-				['Cheese Cocoa', 86.4, 65.2, 82.5],
-				['Walnut Brownie', 72.4, 53.9, 39.1],
-			];
+			const dataset = genDataset(10, 10);
 
 			const option = {
 				toolbox: { feature: { saveAsImage: {}, dataView: {} } },
 				dataset: { source: dataset },
 				xAxis: { type: 'category' },
 				yAxis: { type: 'value' },
+				dataZoom: [
+					// 作用在直角坐标系上
+					{ type: 'slider', xAxisIndex: 0 },
+				],
 				label: { show: true, position: 'top' },
 				tooltip: { show: true },
 				legend: { show: true },
 				series: [
 					{ type: 'bar', seriesLayoutBy: 'row' },
 					{ type: 'bar', seriesLayoutBy: 'row' },
-					{ type: 'bar', seriesLayoutBy: 'row' },
 				],
 			};
 			myChart.setOption(option);
+
+			// 生成 rowLen * colLen 随机矩阵
+			function genDataset(rowLen, colLen) {
+				const result = [];
+				for (let r = 0; r < rowLen; r += 1) {
+					const row = r === 0 ? [] : [`R${r}`];
+					for (let c = 0; c < colLen; c += 1) {
+						row.push(c === 0 ? `C${c}` : random(10, 100));
+					}
+					result.push(row);
+				}
+				return result;
+			}
 		</script>
 	</body>
 </html>

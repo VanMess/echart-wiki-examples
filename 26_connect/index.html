@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px; height: 400px;"></div>
+		<div id="main2" style="width: 600px; height: 400px;"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.common.js"></script>
+		<script type="text/javascript">
+			function gen(id, i) {
+				const myChart = echarts.init(document.getElementById(id));
+
+				const option = {
+					toolbox: {
+						feature: {
+							saveAsImage: {
+								excludeComponents: ['toolbox'],
+								connectedBackgroundColor: '#000',
+								pixelRatio: 3,
+							},
+						},
+					},
+					legend: {},
+					tooltip: { trigger: i === 0 ? 'item' : 'item', formatter: i === 0 ? 'test: {a0}' : 'tect:{b0}' },
+					xAxis: {
+						type: 'category',
+					},
+					yAxis: {
+						type: 'value',
+					},
+					series: [
+						{
+							name: 's1',
+							data:
+								i === 0
+									? [
+											['Mon', 820],
+											['Tue', 932],
+											['Wed', 901],
+											['Thu', 934],
+											['Fri', 1290],
+											['Sat', 1330],
+											['Sun', 1320],
+											['Sunc', 1320],
+									  ]
+									: [
+											{ name: 'Mon', value: 820 },
+											{ name: 'Tue', value: 932 },
+											{ name: 'Wed', value: 901 },
+											{ name: 'Thu', value: 934 },
+											{ name: 'Fri', value: 1290 },
+											{ name: 'Sat', value: 1330 },
+											{ name: 'Sun', value: 1320 },
+									  ],
+							type: i === 0 ? 'line' : 'pie',
+						},
+					],
+				};
+				myChart.setOption(option);
+				return myChart;
+			}
+
+			const ec1 = gen('main', 0);
+			const ec2 = gen('main2', 1);
+
+			ec1.group = 'g1';
+			ec2.group = 'g1';
+			echarts.connect([ec1, ec2]);
+
+			ec1.dispatchAction({
+				type: 'showTip',
+				seriesIndex: 0,
+				dataIndex: 1,
+			});
+		</script>
+	</body>
+</html>

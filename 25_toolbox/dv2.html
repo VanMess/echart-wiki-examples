@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px; height: 400px;"></div>
+		<div id="dataview">hello world</div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script crossorigin src="//unpkg.com/react@16/umd/react.production.min.js"></script>
+		<script crossorigin src="//unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+		<script type="text/javascript">
+			const myChart = echarts.init(document.getElementById('main'));
+			// 使用react组件形式编写的数据视图
+			function DataView(props) {
+				const rows = props.series;
+				return React.createElement(
+					'table',
+					{
+						className: 'table',
+					},
+					rows.map(function (row) {
+						return React.createElement(
+							'tr',
+							null,
+							React.createElement('td', null, row.name),
+							row.value.map(function (cell) {
+								return React.createElement('td', null, cell);
+							})
+						);
+					})
+				);
+			}
+
+			const option = {
+				toolbox: {
+					feature: {
+						dataView: {
+							optionToContent(opt) {
+								const {
+									series: [{ data }],
+								} = opt;
+								// 动态创建一个容器节点
+								const root = document.createElement('div');
+								// 需要先将react组件渲染到容器节点上
+								ReactDOM.render(React.createElement(DataView, { series: data }), root);
+								return root;
+							},
+						},
+					},
+				},
+				radar: {
+					indicator: [
+						{ name: '销售', max: 6500 },
+						{ name: '管理', max: 16000 },
+						{ name: '信息技术', max: 30000 },
+						{ name: '客服', max: 38000 },
+						{ name: '研发', max: 52000 },
+						{ name: '市场', max: 25000 },
+					],
+				},
+				series: [
+					{
+						type: 'radar',
+						data: [
+							{
+								value: [4300, 10000, 28000, 35000, 50000, 19000],
+								name: '预算',
+							},
+							{
+								value: [5000, 14000, 28000, 31000, 42000, 21000],
+								name: '实际开销',
+							},
+						],
+					},
+				],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>

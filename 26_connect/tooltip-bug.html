@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+		<style>
+			.ec {
+				display: inline-block;
+				width: 480px;
+				height: 340px;
+				font-size: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="ec1" class="ec"></div>
+		<div id="ec2" class="ec"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.common.js"></script>
+		<script type="text/javascript">
+			const random = (min, max) => Math.round(Math.random() * (max - min) + min);
+			const genSeries = (len = 7) => {
+				const result = [];
+				for (let i = 0; i < len; i++) {
+					result.push(random(10, 100));
+				}
+				return result;
+			};
+			const baseOption = {
+				grid: { containLabel: true },
+				xAxis: { type: 'category', data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] },
+				tooltip: {
+					axisPointer: {
+						type: 'cross',
+						label: {
+							backgroundColor: '#283b56',
+						},
+					},
+				},
+				yAxis: { type: 'value' },
+			};
+			const opt1 = {
+				...baseOption,
+				series: [{ name: 's1', data: genSeries(), type: 'line' }],
+			};
+			const ec1 = echarts.init(document.getElementById('ec1'));
+			ec1.setOption(opt1);
+
+			const opt2 = {
+				...baseOption,
+				legend: {},
+				series: [
+					{ name: 's2', data: genSeries(), type: 'line' },
+					{ name: 's3', data: genSeries(), type: 'line' },
+					{ name: 's4', data: genSeries(), type: 'line' },
+				],
+			};
+			const ec2 = echarts.init(document.getElementById('ec2'));
+			ec2.setOption(opt2);
+
+			echarts.connect([ec1, ec2]);
+		</script>
+	</body>
+</html>

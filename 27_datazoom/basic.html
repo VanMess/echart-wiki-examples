@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 1020px; height: 400px;"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			const random = (min, max) => Math.round(Math.random() * (max - min) + min);
+			const myChart = echarts.init(document.getElementById('main'));
+
+			const option = {
+				toolbox: {
+					feature: {
+						saveAsImage: {},
+					},
+				},
+				dataZoom: [
+					// 作用在直角坐标系上
+					{ type: 'slider', xAxisIndex: 0, yAxisIndex: 0, right: '55%', left: 0 },
+					// 作用在极坐标系上
+					{ type: 'slider', angleAxisIndex: 0, left: '55%', right: '5%' },
+				],
+				grid: { left: 0, containLabel: true, width: '45%' },
+				xAxis: { type: 'value' },
+				yAxis: { type: 'category' },
+				polar: { left: '50%', containLabel: true, radius: '55%', center: ['77%', '50%'] },
+				angleAxis: { type: 'category' },
+				radiusAxis: { type: 'value' },
+				series: [
+					{
+						data: genSeriesData(7),
+						type: 'bar',
+					},
+					{
+						data: genSeriesData(7),
+						type: 'bar',
+						coordinateSystem: 'polar',
+					},
+				],
+			};
+			myChart.setOption(option);
+
+			function genSeriesData(len) {
+				const result = [];
+				for (let i = 0; i < len; i += 1) {
+					const node = [random(10, 100), `S${i + 1}`];
+					result.push(node);
+				}
+				return result;
+			}
+		</script>
+	</body>
+</html>

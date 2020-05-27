@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 1020px; height: 400px;"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			const random = (min, max) => Math.round(Math.random() * (max - min) + min);
+			const myChart = echarts.init(document.getElementById('main'));
+
+			const option = {
+				toolbox: {
+					feature: {
+						saveAsImage: {},
+					},
+				},
+				dataZoom: [
+					// 作用在直角坐标系上
+					{ type: 'slider', yAxisIndex: 0, filterMode: 'none' },
+					// { type: 'slider', yAxisIndex: 0, filterMode: 'weakFilter' },
+				],
+				grid: {},
+				xAxis: { type: 'category' },
+				yAxis: { type: 'value' },
+				tooltip: { trigger: 'axis' },
+				series: [
+					{
+						data: genSeriesData(20),
+						type: 'line',
+						smooth: true,
+						areaStyle: {},
+					},
+				],
+			};
+			myChart.setOption(option);
+
+			function genSeriesData(len) {
+				const result = [];
+				let cursor = 0;
+				for (let i = 0; i < len; i += 1) {
+					const node = [`S${i + 1}`, (cursor = cursor + random(10, 100)), cursor + random(0, 10)];
+					result.push(node);
+				}
+				return result;
+			}
+		</script>
+	</body>
+</html>

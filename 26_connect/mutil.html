@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+		<style>
+			.ec {
+				display: inline-block;
+				width: 300px;
+				height: 300px;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.common.js"></script>
+		<script type="text/javascript">
+			const random = (min, max) => Math.round(Math.random() * (max - min) + min);
+			const baseOptions = {
+				legend: {},
+				tooltip: { trigger: 'axis' },
+				xAxis: { type: 'category' },
+				yAxis: { type: 'value' },
+				series: [],
+			};
+			function generateEcharts(instanceCount) {
+				const dimensions = 10;
+				for (let i = 0; i < instanceCount; i++) {
+					const name = `ec-${i}`;
+					const data = [];
+					for (let j = 0; j < dimensions; j++) {
+						data.push([`d${j}`, random(10, 100)]);
+					}
+					const ele = document.createElement('div');
+					ele.classList.add('ec');
+					document.body.appendChild(ele);
+
+					const chart = echarts.init(ele);
+					chart.setOption({
+						...baseOptions,
+						series: [{ name, data, type: 'line' }],
+					});
+					// 设定分组ID
+					chart.group = 'test-group';
+				}
+				// 启动联动效果
+				echarts.connect('test-group');
+			}
+
+			generateEcharts(10);
+		</script>
+	</body>
+</html>

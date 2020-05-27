@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="main" style="width: 600px; height: 400px;"></div>
+
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
+		<script type="text/javascript">
+			const myChart = echarts.init(document.getElementById('main'));
+
+			const option = {
+				toolbox: {
+					feature: {
+						magicType: {
+							type: ['line', 'bar', 'stack', 'tiled'],
+							option: {
+								line: { smooth: true },
+								bar: { label: { show: true } },
+								stack: { label: { show: true, color: 'red' } },
+								tiled: { title: { text: 'tiled 效果' } },
+							},
+							seriesIndex: {
+								line: [0, 1],
+							},
+						},
+					},
+				},
+				title: { text: '初始效果' },
+				xAxis: {
+					type: 'category',
+					boundaryGap: false,
+					data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+				},
+				yAxis: {
+					type: 'value',
+					axisLabel: {
+						formatter: '{value} °C',
+					},
+				},
+				series: [
+					{
+						name: '最高气温',
+						type: 'line',
+						data: [11, 11, 15, 13, 12, 13, 10],
+					},
+					{
+						name: '平均气温',
+						type: 'scatter',
+						data: [5, 5, 8, 10, 4, 4, 6],
+					},
+					{
+						name: '最低气温',
+						type: 'line',
+						data: [1, -2, 2, 5, 3, 2, 0],
+					},
+				],
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>

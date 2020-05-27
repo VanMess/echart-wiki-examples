@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>Echarts Example</title>
+	</head>
+	<body>
+		<div id="one" style="width: 1500px; height: 400px;"></div>
+		<div id="two" style="width: 1500px; height: 400px;"></div>
+		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.common.js"></script>
+		<script type="text/javascript">
+			// 基于准备好的dom，初始化echarts实例
+			var chart1 = echarts.init(document.getElementById('one'));
+			var chart2 = echarts.init(document.getElementById('two'));
+			// 指定图表的配置项和数据
+			option_oApp = {
+				title: {
+					text: 'oSan IO',
+				},
+				xAxis: {
+					type: 'category',
+					data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+				},
+				yAxis: {
+					type: 'value',
+				},
+				tooltip: {
+					axisPointer: {
+						type: 'cross',
+						label: {
+							backgroundColor: '#283b56',
+						},
+					},
+				},
+				dataZoom: [
+					{
+						// 这个dataZoom组件，默认控制x轴。
+						type: 'slider', // 这个 dataZoom 组件是 slider 型 dataZoom 组件
+						start: 0, // 左边在 0% 的位置。
+						end: 100, // 右边在 100% 的位置。
+					},
+				],
+				series: [
+					{
+						data: [820, 932, 901, 934, 1290, 1330, 1320],
+						type: 'line',
+						smooth: true,
+					},
+				],
+			};
+
+			// 指定图表的配置项和数据
+			option_oStor = {
+				title: {
+					text: 'oStor IO',
+				},
+				xAxis: {
+					type: 'category',
+					data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+				},
+				yAxis: {
+					type: 'value',
+				},
+				tooltip: {
+					axisPointer: {
+						type: 'cross',
+						label: {
+							backgroundColor: '#283b56',
+						},
+					},
+				},
+				legend: {
+					data: ['all oStor', 'node1 oStor', 'node2 oStor', 'node3 oStor'],
+				},
+				dataZoom: [
+					{
+						// 这个dataZoom组件，默认控制x轴。
+						type: 'slider', // 这个 dataZoom 组件是 slider 型 dataZoom 组件
+						start: 0, // 左边在 10% 的位置。
+						end: 100, // 右边在 60% 的位置。
+					},
+				],
+				series: [
+					{
+						name: 'all oStor',
+						data: [820, 932, 901, 934, 1290, 1330, 1320],
+						type: 'line',
+						smooth: true,
+						itemStyle: {
+							normal: {
+								color: '#6cb041',
+								lineStyle: {
+									width: 5, //设置线条粗细
+								},
+							},
+						},
+					},
+					{
+						name: 'node1 oStor',
+						data: [120, 232, 201, 334, 290, 330, 320],
+						type: 'line',
+						smooth: true,
+					},
+					{
+						name: 'node2 oStor',
+						data: [220, 432, 101, 234, 590, 530, 620],
+						type: 'line',
+						smooth: true,
+					},
+					{
+						name: 'node3 oStor',
+						data: [520, 302, 601, 404, 790, 490, 520],
+						type: 'line',
+						smooth: true,
+					},
+				],
+			};
+
+			// 使用刚指定的配置项和数据显示图表。
+			chart1.setOption(option_oApp);
+			chart2.setOption(option_oStor);
+			echarts.connect([chart1, chart2]);
+
+			chart2.on('legendselectchanged', (...arg) => {
+				debugger;
+			});
+			chart1.on('legendselectchanged', (...arg) => {
+				debugger;
+			});
+		</script>
+	</body>
+</html>
