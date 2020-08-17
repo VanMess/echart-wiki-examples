@@ -7,7 +7,7 @@
 		<title>Echarts Example</title>
 	</head>
 	<body>
-		<div id="main" style="width: 600px;height: 400px"></div>
+		<div id="main" style="width: 600px; height: 400px;"></div>
 
 		<script src="//cdn.bootcss.com/axios/0.19.2/axios.min.js"></script>
 		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
@@ -37,6 +37,11 @@
 
 				const option = {
 					geo: { map: 'USA', roam: true },
+					toolbox: {
+						feature: {
+							saveAsImage: {},
+						},
+					},
 					series: [
 						{
 							type: 'scatter',
@@ -47,7 +52,7 @@
 								[-98.311367, 34.995703, 18],
 								[-123.129194, 38.451652, 48],
 							],
-							symbolSize: function(val) {
+							symbolSize: function (val) {
 								return val[2];
 							},
 						},

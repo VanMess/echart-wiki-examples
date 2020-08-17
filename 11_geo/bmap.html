@@ -7,7 +7,7 @@
 		<title>Echarts Example</title>
 	</head>
 	<body>
-		<div id="main" style="width: 960px;height: 600px"></div>
+		<div id="main" style="width: 960px; height: 600px;"></div>
 
 		<script src="//api.map.baidu.com/api?v=2.0&ak=KOmVjPVUAey1G2E8zNhPiuQ6QiEmAwZu&__ec_v__=20190126"></script>
 		<script src="//cdn.bootcss.com/echarts/4.5.0/echarts.js"></script>
@@ -43,11 +43,6 @@
 			];
 
 			var option = {
-				toolbox: {
-					feature: {
-						saveAsImage: {},
-					},
-				},
 				bmap: {
 					center: [104.114129, 34.550339],
 					zoom: 5.4,
@@ -59,7 +54,7 @@
 						type: 'scatter',
 						coordinateSystem: 'bmap',
 						data: data,
-						symbolSize: function(val) {
+						symbolSize: function (val) {
 							return val[2] / 10;
 						},
 					},
@@ -67,13 +62,10 @@
 			};
 			myChart.setOption(option);
 
-			var traffic = new BMap.TrafficLayer();
-			var map = myChart
-				.getModel()
-				.getComponent('bmap')
-				.getBMap();
-			map.centerAndZoom(new BMap.Point(114.48, 38.03), 8);
-			map.addTileLayer(traffic);
+			// var traffic = new BMap.TrafficLayer();
+			// var map = myChart.getModel().getComponent('bmap').getBMap();
+			// map.centerAndZoom(new BMap.Point(114.48, 38.03), 8);
+			// map.addTileLayer(traffic);
 		</script>
 	</body>
 </html>
